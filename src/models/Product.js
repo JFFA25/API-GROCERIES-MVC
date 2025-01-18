@@ -1,3 +1,4 @@
+import { name } from "ejs";
 import{model , Schema} from "mongoose";
 const productSchema = new Schema({
     bardcode:{
@@ -15,4 +16,6 @@ const productSchema = new Schema({
     versionKey:false,
     timestamps:true
     })
+
+
 export default model('product',productSchema)

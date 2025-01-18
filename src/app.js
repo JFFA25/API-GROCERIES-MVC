@@ -2,6 +2,7 @@
 import express, { Router } from 'express';
 import morgan from 'morgan';
 import productsRouter from './rutes/products.rutes.js'
+import employedRouter from './rutes/employees.rutes.js';
 const app = express();
 
 //Settings
@@ -14,4 +15,5 @@ app.use(express.urlencoded({extended:true}));
 
 //Routes
 app.use('/groceries/products', productsRouter)
+app.use('/groceries/employees', employedRouter)
 export default app;
