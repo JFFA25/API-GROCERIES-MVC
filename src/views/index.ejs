@@ -1,43 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <title>Groceries</title>
+
+    <title>Groseries</title>
+
 </head>
-<body>
+<body >
     <div data-role="page" id="products">
-        <div data-role="header" style="overflow:hidden;">
-            <h1>Abarrotes Siddhartha</h1>
-            <a href="#" data-icon="gear" class="ui-btn-right">Opciones</a>
+	    <div data-role="header" style="overflow: hidden;">
+            <a href="#" data-icon="gear" class="ui-btn-right">Options</a>
+            <h1>Abarrotes Hueto</h1>
             <div data-role="navbar">
-              <ul>
-                <li><a href="#products">Productos</a></li>
-                <li><a href="#empleoyess">Empleados</a></li>
-                <li><a href="#customers">Clientes</a></li>
-              </ul>
+                <ul>
+                    <li><a href="#products">Productos</a></li>
+                    <li><a href="#employees">Empleados</a></li>
+                    <li><a href="#client">Clientes</a></li>
+                </ul>
             </div>
-          </div>
-    </div>
-
-        
-    <div role="main" class="ui-content">
-        <form action="" method="POST">
-            <div class="card">
+        </div>
+	    <div role="main" class="ui-content">
+            <form action="/groceries/products/insert" method="POST">
                 <div class="card-body">
-                    <label for="txt_barcode">Codigo de barras</label>
-                    <input type="text" name="barcode" id="txt_barcode">
+                    <label for="txt_barcode">Codigo de barrras</label>
+                    <input type="number" name="barcode" id="txt_barcode" placeholder="Escribe el codigo de barras" value="">
+                    <br>
+                    <label for="txt_descripcion">Descripcion</label>
+                    <input type="text" name="description" id="txt_descripcion" placeholder="Añade una descripción" value="">
+                    <br>
+                    <label for="txt_marca">Marca</label>
+                    <input type="text" name="marca" id="txt_marca" placeholder="Escribe la marca" value="">
+                    <br>
+                    <label for="txt_price">Precio</label>
+                    <input type="text" name="price" id="txt_price" placeholder="Añade el precio" value="">
+                    <br>
+                    <label for="txt_cost">Costo</label>
+                    <input type="text" name="cost" id="txt_cost" placeholder="Añade un costo" value="">
+                    <br>
+                    <label for="txt_expired_date">Fecha de caducidad</label>
+                    <input type="date" name="expired_date" id="txt_expired_date" placeholder="Añade la fecha de caducidad" value="">
+                    <br>
+                    <label for="txt_stock">Stock</label>
+                    <input type="text" name="stock" id="txt_stock" placeholder="¿Cuantos hay en inventario?" value="">
+                    <br>
+                    <button class="ui-btn ui-shadow">Guardar</button>
                 </div>
-            </div>
-        </form>
-    </div>
-    
-   
+            </form>
+        </div>
 
-        <div data-role="footer">
+	    <div data-role="footer">
 
         </div>
     </div>

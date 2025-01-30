@@ -44,11 +44,14 @@ productsController.insert=(request,response)=>{
     productDao.insert(request.body)
     .then((product)=>{
         response.json({
-            data:{
-                message:"Product insert successefully",
-                product:product
-            }
+            
+            // data:{
+            //     message:"Product insert successefully",
+            //     product:product
+            // }
+            
         })
+        res.redirect('/groceries/products/getAll')
     })
     .catch((error)=>{
         response.json({
