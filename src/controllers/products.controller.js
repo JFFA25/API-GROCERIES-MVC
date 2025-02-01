@@ -1,99 +1,104 @@
 import { request, response } from "express";
-import productDao from "../dao/products.dao.js";
-import { error } from "console";
+import productDAO from "../dao/products.dao.js";
 
-const productsController = {};
+const productsController={};//creacion del objeto vacio para agrupar metodos de gestino de sistema lo de un crud 
+
 
 productsController.getAll = (request, response) => {
-    productDao.getAll()
-        .then((products) => {
-            response.render('../src/views/index.ejs', { products: products }); // Asegúrate de pasar la variable products
-        })
+    productDAO.getAll()
+    .then((products) => {
+        response.render('../src/views/index.ejs', { products }); //  Renderiza la vista con los datos
+    })
+    .catch((error) => {
+        response.status(500).json({ message: error }); // Envía JSON solo en caso de error
+    });
+};
+
+productsController.getOne = (req, res) => {
+    // Obtiene el código de barras desde los parámetros de la solicitud
+    const { barcode } = req.params;
+
+    productDAO.getOne(barcode)
+        /*.then((product) => {
+            // Devuelve el producto obtenido en formato JSON
+            res.json(product);
+        })*/
+       res.render('../src/views/edit-ejs',{products})
         .catch((error) => {
-            response.json({
+            // Manejo de errores en caso de fallo al obtener el producto
+            res.json({
                 data: {
-                    message: error
+                    message: error // Devuelve el mensaje del error
                 }
             });
         });
 };
 
-// para mostrar solo uno
-productsController.getOne = (request, response) => {
-    productDao.getOne(request.params.barcode)
-        .then((product) => {
-            if (product != null) {
-                return response.json({ data: product });
-            } else {
-                return response.json({ data: { message: "Product not found" } });
+
+
+productsController.insert=(req,res)=>{
+    productDAO.insert(req.body)
+    .then((response)=>{
+      /*  res.json({
+            data:{
+                message: "producto agregado con exito",
+                product:response
+
+            }
+        })*/
+       res.redirect('/groceries/products/getAll')
+    })
+    .catch((error)=>{
+        res.json({
+            data:{
+                message:error
             }
         })
-        .catch((error) => {
-            return response.json({
-                data: {
-                    message: error
-                }
-            });
-        });
-};
+    });
+}
 
-// función que:
-productsController.insert = (request, response) => {
-    productDao.insert(request.body)
-        .then((product) => {
-            response.json({
-                // data: {
-                //     message: "Product insert successfully",
-                //     product: product
-                // }
-            });
-            // return response.redirect('/groceries/products/getAll'); // Eliminado para evitar el error
-        })
-        .catch((error) => {
-            return response.json({
-                data: {
-                    message: error
-                }
-            });
-        });
-};
 
-productsController.updateOne = (request, response) => {
-    productDao.updateOne(request.body, request.params.barcode)
-        .then((result) => {
-            return response.json({
-                data: {
-                    message: "Product updated successfully",
-                    result: result
-                }
-            });
-        })
-        .catch((error) => {
-            return response.json({
-                data: {
-                    error: error
-                }
-            });
+productsController.updateOne=(req,res)=>{
+    productDAO.updateOne(req.body, req.params.barcode)
+    .then((result)=>{
+        res.json({
+            data:{
+                message:"producto actualizado correctamente  con exito ",
+                result:result
+            }
         });
-};
+    })
+    .catch((error)=>{
+    res.json({
+        data:{error:error
+            
+        }});
+    
+    });
 
-productsController.deleteOne = (request, response) => {
-    productDao.deleteOne(request.params.barcode)
-        .then((productDelete) => {
-            return response.json({
-                data: {
-                    message: "Product deleted successfully",
-                    product_delete: productDelete
-                }
-            });
-        })
-        .catch((error) => {
-            return response.json({
-                data: {
-                    error: error
-                }
-            });
+}
+
+
+productsController.deleteOne=(req,res)=>{
+    productDAO.deleteOne(req.params.barcode)
+    .then((productDeleted)=>{
+        // res.json({
+        //     data:{
+        //         message:"product deleted succelfully",
+        //         product:productDeleted,
+
+        //     }
+        // }); 
+        res.redirect('/groceries/products/getAll')
+    })
+    .catch((error)=>{
+        res.json({
+            data:{
+                error:error
+            }
         });
-};
+    })
+}
 
-export default productsController;
+
+export default productsController;//exprotacion por si puede ser usao en otras partes del proyecto 
