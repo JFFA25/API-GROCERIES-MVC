@@ -8,6 +8,5 @@ router.get('/getOne/:barcode',productsController.getOne);
 router.post('/insert',productsController.insert)
 //ruta para..que el barcode se actualice y necesita los parametros 
 router.put('/updateOne/:barcode',productsController.updateOne);
-//
 router.get('/deleteOne/:barcode',productsController.deleteOne);
 export default router;

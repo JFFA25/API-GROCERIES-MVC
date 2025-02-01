@@ -1,104 +1,98 @@
-import { request, response } from "express";
-import productDAO from "../dao/products.dao.js";
+import productsDao from '../dao/products.dao.js';
+const productsController = {};
 
-const productsController={};//creacion del objeto vacio para agrupar metodos de gestino de sistema lo de un crud 
-
-
-productsController.getAll = (request, response) => {
-    productDAO.getAll()
-    .then((products) => {
-        response.render('../src/views/index.ejs', { products }); //  Renderiza la vista con los datos
-    })
-    .catch((error) => {
-        response.status(500).json({ message: error }); // Envía JSON solo en caso de error
-    });
-};
-
-productsController.getOne = (req, res) => {
-    // Obtiene el código de barras desde los parámetros de la solicitud
-    const { barcode } = req.params;
-
-    productDAO.getOne(barcode)
-        /*.then((product) => {
-            // Devuelve el producto obtenido en formato JSON
-            res.json(product);
-        })*/
-       res.render('../src/views/edit-ejs',{products})
+productsController.getAll = (req, res) => {
+    productsDao.getAll()
+        .then((products) => {
+            res.render('../src/views/index.ejs', {products});
+            // Si quieres devolver un JSON en lugar de renderizar:
+            /*
+            res.json({
+                data: products
+            });
+            */
+        })
         .catch((error) => {
-            // Manejo de errores en caso de fallo al obtener el producto
             res.json({
                 data: {
-                    message: error // Devuelve el mensaje del error
+                    message: error.message || 'Some error occurred while retrieving products.'
                 }
             });
         });
 };
 
 
+productsController.getOne = (req, res) => {
+    productsDao.getOne(req.params.barcode)
+        .then((product) => {
+            /*if (product) {
+                res.json({ data: product });
+            } else { 
+                res.json({ data: { message: Product with barcode ${req.params.barcode} not found } });
+            }*/
+           res.render('../src/views/edit.ejs', {product});
+        })
+        .catch((error) => {
+            res.json({
+                data: {
+                    message: error.message || 'Some error occurred while retrieving product.'
+                }
+            });
+        });
+};
 
-productsController.insert=(req,res)=>{
-    productDAO.insert(req.body)
-    .then((response)=>{
-      /*  res.json({
-            data:{
-                message: "producto agregado con exito",
-                product:response
+productsController.insert = (req, res) => {
+    productsDao.insert(req.body)
+        .then((response) => {
+            /res.json({ mmesage: 'Product inserted successfully', product: response });/
+            res.redirect('/groceries/products/getAll')
+        })
+        .catch((error) => {
+            res.json({
+                data: {
+                    message: error.message || 'Some error occurred while inserting product.'
+                }
+            });
+        });
+};
 
-            }
-        })*/
-       res.redirect('/groceries/products/getAll')
-    })
-    .catch((error)=>{
-        res.json({
-            data:{
-                message:error
+productsController.updateOne = (req, res) => {
+    productsDao.updateOne(req.body, req.params.barcode)
+        .then((result) => {
+            res.json({
+            data: {
+                message: 'Product updated successfully',
+                result: result
             }
         })
-    });
-}
-
-
-productsController.updateOne=(req,res)=>{
-    productDAO.updateOne(req.body, req.params.barcode)
-    .then((result)=>{
-        res.json({
-            data:{
-                message:"producto actualizado correctamente  con exito ",
-                result:result
-            }
+        })
+        .catch((error) => {
+            res.json({
+                data: {
+                    message: error.message || 'Some error occurred while updating product.'
+                }
+            });
         });
-    })
-    .catch((error)=>{
-    res.json({
-        data:{error:error
-            
-        }});
-    
-    });
+};
 
-}
-
-
-productsController.deleteOne=(req,res)=>{
-    productDAO.deleteOne(req.params.barcode)
-    .then((productDeleted)=>{
-        // res.json({
-        //     data:{
-        //         message:"product deleted succelfully",
-        //         product:productDeleted,
-
-        //     }
-        // }); 
-        res.redirect('/groceries/products/getAll')
-    })
-    .catch((error)=>{
-        res.json({
-            data:{
-                error:error
-            }
+productsController.deleteOne = (req, res) => {
+    productsDao.deleteOne(req.params.barcode)
+        .then((productDeleted) => {
+            /*res.json({
+                data: {
+                    message: 'Product deleted successfully',
+                    product_deleted: productDeleted
+                }
+            });*/
+            res.redirect('/groceries/products/getAll')
+        })
+        .catch((error) => {
+            res.json({
+                data: {
+                    message: error.message || 'Some error occurred while deleting product.'
+                }
+            });
         });
-    })
 }
 
-
-export default productsController;//exprotacion por si puede ser usao en otras partes del proyecto 
+export default productsController;
