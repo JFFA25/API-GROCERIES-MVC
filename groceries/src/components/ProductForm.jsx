@@ -4,7 +4,7 @@ import './ProductForm.css'; // Asegúrate de tener esta hoja de estilos con las 
 
 const ProductForm = ({ reload, selectedProduct, setSelectedProduct }) => {
     const [formData, setFormData] = useState({
-        barcode: "",
+        bardcode: "",
         description: "",
         brand: "",
         price: "",
@@ -31,7 +31,7 @@ const ProductForm = ({ reload, selectedProduct, setSelectedProduct }) => {
             await addProduct(formData);
         }
         setFormData({
-            barcode: "",
+            bardcode: "",
             description: "",
             brand: "",
             price: "",
@@ -48,8 +48,8 @@ const ProductForm = ({ reload, selectedProduct, setSelectedProduct }) => {
             <form className="product-form" onSubmit={handleSubmit}>
                 <h2>{selectedProduct ? "Actualizar Producto" : "Agregar Producto"}</h2>
                 <div className="form-group">
-                    <label htmlFor="barcode">Código de barras</label>
-                    <input type="text" name="barcode" id="barcode" placeholder="Código de barras" value={formData.barcode} onChange={handleChange} required />
+                    <label htmlFor="bardcode">Código de barras</label>
+                    <input type="text" name="bardcode" id="bardcode" placeholder="Código de barras" value={formData.barcode} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Descripción</label>

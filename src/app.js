@@ -8,6 +8,7 @@ import cors from "cors";
 
 const app = express();
 
+
 //Settings
 app.set('port',process.env.PORT||3008);
 
@@ -25,4 +26,8 @@ app.use('/groceries/products', productsRouter)
 app.use('/groceries/employees', employedRouter)
 app.use('/groceries/customers', customersRouter)
 
+
+
+
 export default app;
+
