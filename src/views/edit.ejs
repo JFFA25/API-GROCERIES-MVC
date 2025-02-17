@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!-- jQueryMobile -->
-     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <title>Tienda de Abarrotes</title>
+    <!-- jQueryMobile -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>editar</title>
 </head>
 <body>
-    <div data-role="page" id="#products" data-theme="b">
+    <div data-role="page" id="products" data-theme="b">
         <div data-role="header" style="overflow: hidden;">
-        <h1>Groceries App</h1>
+            <h1>Editar App</h1>
             <a href="#" data-icon="gear" class="ui-btn-right">Options</a>
             <div data-role="navbar">
                 <ul>
@@ -22,37 +22,42 @@
                 </ul>
             </div>
         </div>
+
         <div role="main" class="ui-content">
-            <form action="/groceries/products/updateOne/<%= product.barcode %>" method="POST">
+            <!-- Formulario para editar el producto -->
+            <form action="/groceries/products/updateOne/<%= product.barcode %>" method="POST" onsubmit="return confirm('¿Está seguro de actualizar este producto?');">
                 <div class="card">
                     <div class="card-body">
-                        <label for="txt-barcode">Codigo de Barras</label>
-                        <input type="text" name="barcode" id="text-barcode" value="<%= product.barcode %>">
-                        <label for="txt-description">Descripcion del Producto</label>
+                        <label for="txt-barcode">Código de Barras</label>
+                        <input type="text" name="barcode" id="text-barcode" value="<%= product.barcode %>" readonly>
+                        
+                        <label for="txt-description">Descripción del Producto</label>
                         <input type="text" name="description" id="text-description" value="<%= product.description %>">
+                        
                         <label for="txt-brand">Marca del Producto</label>
                         <input type="text" name="brand" id="text-brand" value="<%= product.brand %>">
+                        
                         <label for="txt-price">Precio de Venta del Producto</label>
                         <input type="number" name="price" id="text-price" value="<%= product.price %>">
+                        
                         <label for="txt-cost">Costo del Producto</label>
                         <input type="number" name="cost" id="text-cost" value="<%= product.cost %>">
-                        <label for="txt-expired-date">Fecha de caducidad</label>
+                        
+                        <label for="txt-expired-date">Fecha de Caducidad</label>
                         <input type="date" name="expired_date" id="txt-expired-date" value="<%= product.expired_date %>">
+                        
                         <label for="txt-stock">Existencias</label>
                         <input type="number" name="stock" id="text-stock" value="<%= product.stock %>">
-                        <button class="ui-btn ui-shadow">Actualizar</button>
+
+                        <!-- Botón para actualizar el producto -->
+                        <button type="submit" class="ui-btn ui-shadow">Actualizar Producto</button>
                     </div>
                 </div>
             </form>
-            <form action="/groceries/products/deleteOne/<%= product.barcode %>" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">
-                <button class="ui-btn ui-btn-icon-bottom ui-icon-delete" type="submit">
-                    Eliminar
-                </button>
-            </form>
-            
         </div>
+
         <div data-role="footer">
-            
+            <!-- Puedes agregar aquí información del pie de página si es necesario -->
         </div>
     </div>
 </body>

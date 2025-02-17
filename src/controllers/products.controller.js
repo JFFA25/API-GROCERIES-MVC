@@ -1,98 +1,62 @@
-import productsDao from '../dao/products.dao.js';
+import { request, response } from "express";
+import productDAO from "../dao/products.dao.js";
+
 const productsController = {};
 
-productsController.getAll = (req, res) => {
-    productsDao.getAll()
+productsController.getAll = (request, response) => {
+    productDAO.getAll()
         .then((products) => {
-            res.render('../src/views/index.ejs', {products});
-            // Si quieres devolver un JSON en lugar de renderizar:
-            /*
-            res.json({
-                data: products
-            });
-            */
+            response.json({ success: true, data: products });
         })
         .catch((error) => {
-            res.json({
-                data: {
-                    message: error.message || 'Some error occurred while retrieving products.'
-                }
-            });
+            response.status(500).json({ success: false, message: error });
         });
 };
 
-
 productsController.getOne = (req, res) => {
-    productsDao.getOne(req.params.barcode)
+    const { barcode } = req.params;
+
+    productDAO.getOne(barcode)
         .then((product) => {
-            /*if (product) {
-                res.json({ data: product });
-            } else { 
-                res.json({ data: { message: Product with barcode ${req.params.barcode} not found } });
-            }*/
-           res.render('../src/views/edit.ejs', {product});
+            if (product) {
+                res.json({ success: true, data: product });
+            } else {
+                res.status(404).json({ success: false, message: "Producto no encontrado" });
+            }
         })
         .catch((error) => {
-            res.json({
-                data: {
-                    message: error.message || 'Some error occurred while retrieving product.'
-                }
-            });
+            res.status(500).json({ success: false, message: error });
         });
 };
 
 productsController.insert = (req, res) => {
-    productsDao.insert(req.body)
+    productDAO.insert(req.body)
         .then((response) => {
-            /res.json({ mmesage: 'Product inserted successfully', product: response });/
-            res.redirect('/groceries/products/getAll')
+            res.json({ success: true, message: "Producto agregado con éxito", data: response });
         })
         .catch((error) => {
-            res.json({
-                data: {
-                    message: error.message || 'Some error occurred while inserting product.'
-                }
-            });
+            res.status(500).json({ success: false, message: error });
         });
 };
 
 productsController.updateOne = (req, res) => {
-    productsDao.updateOne(req.body, req.params.barcode)
-        .then((result) => {
-            res.json({
-            data: {
-                message: 'Product updated successfully',
-                result: result
-            }
-        })
+    productDAO.updateOne(req.body, req.params.barcode)
+        .then((response) => {
+            res.json({ success: true, message: "Producto actualizado con éxito", data: response });
         })
         .catch((error) => {
-            res.json({
-                data: {
-                    message: error.message || 'Some error occurred while updating product.'
-                }
-            });
+            res.status(500).json({ success: false, message: error });
         });
 };
 
 productsController.deleteOne = (req, res) => {
-    productsDao.deleteOne(req.params.barcode)
+    productDAO.deleteOne(req.params.barcode)
         .then((productDeleted) => {
-            /*res.json({
-                data: {
-                    message: 'Product deleted successfully',
-                    product_deleted: productDeleted
-                }
-            });*/
-            res.redirect('/groceries/products/getAll')
+            res.json({ success: true, message: "Producto eliminado con éxito", data: productDeleted });
         })
         .catch((error) => {
-            res.json({
-                data: {
-                    message: error.message || 'Some error occurred while deleting product.'
-                }
-            });
+            res.status(500).json({ success: false, message: error });
         });
-}
+};
 
 export default productsController;

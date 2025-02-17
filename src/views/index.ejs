@@ -12,7 +12,7 @@
     <div data-role="page" id="products">
         <!-- Header -->
         <div data-role="header" style="overflow:hidden;">
-            <h1>Abarrotes Hueto</h1>
+            <h1>Abarrotes App</h1>
             <a href="#" data-icon="gear" class="ui-btn-right">Options</a>
         </div>
         <!-- Navbar -->
@@ -56,15 +56,15 @@
                         <p>Precio de venta: <%= product.price %></p>
                         <p>Fecha de caducidad: <%= product.expired_date %></p>
                         <p>Existencias: <%= product.stock %></p>
-                        <a href="/groceries/products/getOne/<%= product.barcode %>" class="ui-btn ui-icon-edit ui-btn-icon-bottom">Editar</a>
-                        <a href="/groceries/products/deleteOne/<%= product.barcode %>" class="ui-btn ui-icon-delete ui-btn-icon-bottom">Eliminar</a>
+                        <a href="/groceries/products/getOne/<%= product.barcode %>" class="ui-btn ui-icon-editar ui-btn-icon-bottom">editar</a>
+                        <a href="/groceries/products/deleteOne/ <%= product.barcode %>" class="ui-btn ui-icon-delete ui-btn-icon-bottom">delete  </a>
                     </div>
                 <% }); %>
-            </ul>
+            </ul>           
         </div>
         <!-- Footer -->
         <div data-role="footer">
-            <h4>Derechos Reservados Tierra Negra</h4>
+            <h4>Derechos Reservados por Uri On The Beatz A.K.A BadBeat</h4>
         </div>
     </div>
 </body>
