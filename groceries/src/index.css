@@ -1,11 +1,11 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Impact', 'Arial Black', Arial, sans-serif;
+  line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: #101010;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,40 +14,279 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  font-weight: 700;
+  color: #ff4c4c;
+  text-decoration: underline;
 }
 a:hover {
-  color: #535bf2;
+  color: #ff1a1a;
+  text-decoration: none;
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center;
+  align-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url('background-image-url'); /* Reemplaza con la URL de la imagen que deseas usar */
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 4.5em;
   line-height: 1.1;
+  text-transform: uppercase;
+  color: #ff4c4c;
+  text-shadow: 2px 2px #000000;
+}
+
+.logo {
+  height: 6rem;
+  padding: 1rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+.logo.react {
+  animation: spin infinite 20s linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card {
+  padding: 2rem;
+  text-align: center;
+  background-color: #1c1c1e; /* Fondo oscuro */
+  color: #e0e0e0; /* Texto claro */
+  border: 1px solid #4a4a4c; /* Borde metálico */
+}
+
+.products {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #4a4a4c; /* Borde metálico */
+  border-radius: 8px;
+  background-color: #2b2b2d; /* Fondo oscuro */
+  color: #e0e0e0; /* Texto claro */
+}
+
+.products-list-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #1c1c1e; /* Fondo oscuro */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.products-list-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #e0e0e0; /* Texto claro */
+}
+
+.products-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333333; /* Fondo oscuro */
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  color: #e0e0e0; /* Texto claro */
+}
+
+.product-description {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.product-price {
+  font-size: 16px;
+  color: #ff4c4c;
+}
+
+.product-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #1976D2;
+}
+
+.delete-btn {
+  background-color: #F44336;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #D32F2F;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #e0e0e0; /* Texto claro */
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1rem;
+  background-color: #1c1c1e; /* Fondo oscuro */
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+form input {
+  padding: 8px;
+  border: 1px solid #4a4a4c; /* Borde metálico */
+  border-radius: 5px;
+  background-color: #2b2b2d; /* Fondo oscuro */
+  color: #e0e0e0; /* Texto claro */
+}
+
+.product-form-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #1c1c1e; /* Fondo oscuro */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.product-form h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #e0e0e0; /* Texto claro */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #e0e0e0; /* Texto claro */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #4a4a4c; /* Borde metálico */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  border-color: #ff4c4c;
+  outline: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff4c4c;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.submit-btn:hover {
+  background-color: #e60000;
+}
+
+.product {
+  background-color: #1c1c1e; /* Fondo oscuro */
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Sombra oscura */
+  color: #e0e0e0; /* Texto claro */
+}
+
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-weight: bold;
+  color: #e0e0e0; /* Texto claro */
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  border-radius: 0px;
+  border: 2px solid #ff4c4c;
+  padding: 0.8em 1.5em;
+  font-size: 1.1em;
+  font-weight: 700;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #181818;
+  color: #ff4c4c;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: #ff1a1a;
+  color: #ffffff;
+  border-color: #ff4c4c;
 }
 button:focus,
 button:focus-visible {
@@ -56,13 +295,14 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #000000;
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #e60000;
   }
   button {
     background-color: #f9f9f9;
+    color: #ff4c4c;
   }
 }
