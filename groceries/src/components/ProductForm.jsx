@@ -4,7 +4,7 @@ import './ProductForm.css'; // Asegúrate de tener esta hoja de estilos con las 
 
 const ProductForm = ({ reload, selectedProduct, setSelectedProduct }) => {
     const [formData, setFormData] = useState({
-        bardcode: "",
+        barcode: "",
         description: "",
         brand: "",
         price: "",
@@ -25,31 +25,44 @@ const ProductForm = ({ reload, selectedProduct, setSelectedProduct }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (selectedProduct) {
-            await updateProduct(formData.barcode, formData);
-        } else {
-            await addProduct(formData);
+        try {
+            let response;
+            if (selectedProduct) {
+                response = await updateProduct(formData.barcode, formData);
+            } else {
+                response = await addProduct(formData);
+            }
+    
+            if (!response.success) {
+                throw new Error(response.message); // Captura el mensaje de error del backend
+            }
+    
+            alert(selectedProduct ? "Producto actualizado con éxito" : "Producto agregado con éxito");
+    
+            setFormData({
+                barcode: "",
+                description: "",
+                brand: "",
+                price: "",
+                cost: "",
+                expired_date: "",
+                stock: "",
+            });
+            setSelectedProduct(null);
+            reload();
+        } catch (error) {
+            alert(error.message); // Muestra una alerta si el código de barras ya existe
         }
-        setFormData({
-            bardcode: "",
-            description: "",
-            brand: "",
-            price: "",
-            cost: "",
-            expired_date: "",
-            stock: "",
-        });
-        setSelectedProduct(null);
-        reload();
     };
+    
 
     return (
         <div className="product-form-container">
             <form className="product-form" onSubmit={handleSubmit}>
                 <h2>{selectedProduct ? "Actualizar Producto" : "Agregar Producto"}</h2>
                 <div className="form-group">
-                    <label htmlFor="bardcode">Código de barras</label>
-                    <input type="text" name="bardcode" id="bardcode" placeholder="Código de barras" value={formData.barcode} onChange={handleChange} required />
+                    <label htmlFor="barcode">Código de barras</label>
+                    <input type="text" name="barcode" id="barcode" placeholder="Código de barras" value={formData.barcode} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Descripción</label>
